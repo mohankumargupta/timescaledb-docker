@@ -2,8 +2,8 @@ ARG PG_VERSION
 ############################
 # Build tools binaries in separate image
 ############################
-ARG GO_VERSION=1.12.7
-FROM golang:${GO_VERSION}-alpine AS tools
+ARG GO_VERSION=1.12.8
+FROM arm32v7/golang:${GO_VERSION} AS tools
 
 ENV TOOLS_VERSION 0.7.0
 
@@ -27,7 +27,7 @@ RUN apk update && apk add --no-cache git \
 # Build old versions in a separate stage
 ############################
 ARG PG_VERSION
-FROM postgres:${PG_VERSION}-alpine AS oldversions
+FROM arm32v7/postgres:${PG_VERSION} AS oldversions
 ARG PG_VERSION
 ARG OSS_ONLY
 RUN set -ex \
